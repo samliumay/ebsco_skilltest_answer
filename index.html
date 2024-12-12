@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Test</title>
+    <link rel="stylesheet" href="skilltest.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Result List</h1>
+
+        <div class="entry" data-isbn="9780192853455" data-bibid="5468" id="result1">
+            <div class="cover"></div>
+            <div class="record">
+                <div class="title">Economics: A Very Short Introduction</div>
+                <div class="source">Partha Dasgupta, ‎Frank Ramsey · 2007</div>
+                <div class="description">Combining a global approach with examples from everyday life, this work describes the lives of two children who live very different lives in different parts of the world: in the Mid-West USA and in Ethiopia.</div>
+                <div class="rtac"></div>
+            </div>
+        </div>
+
+        <div class="entry" data-isbn="9781315407241" data-bibid="8574" id="result2">
+            <div class="cover"></div>
+            <div class="record">
+                <div class="title">Rethinking Economics: An Introduction to Pluralist Economics</div>
+                <div class="source">Liliann Fischer, ‎Joe Hasell, ‎J. Christopher Proctor · 2017</div>
+                <div class="description">This is in keeping with the Rethinking Economics campaign which argues that students are better served when they are presented with a spectrum of economic ideas rather than just the dominant paradigm.</div>
+                <div class="rtac"></div>
+            </div>
+        </div>
+
+        <div class="entry" data-isbn="9780335243563" data-bibid="1235" id="result3">
+            <div class="cover"></div>
+            <div class="record">
+                <div class="title">Introduction To Health Economics</div>
+                <div class="source">Guinness, Lorna, ‎Wiseman, Virginia · 2011</div>
+                <div class="description">This text aims to provide non-economists with an introduction to economics in public health. It covers key economics principles, such as supply and demand, health care markets, healthcare finance and economic evaluation.</div>
+                <div class="rtac"></div>
+            </div>
+        </div>
+
+        <div class="task">
+            <h2>Tasks</h2>
+            <ul>
+                <li>Use <a href="https://www.googleapis.com/books/v1/volumes" target="_blank">Google Books API</a> to add a book cover for each item on the page (div.cover).</li>
+                <li>Obtain holdings by asynchronously calling <a href="https://gssapps.ebscohost.com/cwolf/skilltest/holdings.php" target="_blank">this service</a>.</li>
+                <ul>
+                    <li>Display holding data in a table with four columns (Location, Call No., Status, Due Date), use div.rtac.</li>
+                    <li>Show table heading & no more than 3 rows initially, if more offer to show all. If show all, offer to show less.</li>
+                    <li>Do not show items with a status of lost.</li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
