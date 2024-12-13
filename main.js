@@ -55,7 +55,7 @@ async function fetchHoldingsData(bibid, entry) {
         const response = await fetch(`${holdingsServiceURL}?bibid=${bibid}`);
         const data = await response.json();
 
-        if (data.length > 0) {
+        if (data.bibRecords && data.bibRecords.length > 0) {
             const rtacDiv = entry.querySelector('.rtac');
 
             // Create and populate the table
@@ -65,16 +65,18 @@ async function fetchHoldingsData(bibid, entry) {
             table.appendChild(thead);
 
             const tbody = document.createElement('tbody');
-            data.filter(item => item.status.toLowerCase() !== 'lost')
+            data.bibRecords.filter(item => item.holdings)
+                .flatMap(record => record.holdings)
+                .filter(holding => holding.status.toLowerCase() !== 'lost')
                 .sort((a, b) => (a.status.toLowerCase() === 'available' ? -1 : 1))
                 .slice(0, 3) // Display only the first 3 rows initially
-                .forEach(item => addTableRow(tbody, item));
+                .forEach(holding => addTableRow(tbody, holding));
 
             table.appendChild(tbody);
             rtacDiv.appendChild(table);
 
             // Show all / Show less functionality
-            if (data.length > 3) {
+            if (data.bibRecords.some(record => record.holdings.length > 3)) {
                 addShowMoreLessButton(data, tbody, rtacDiv);
             }
         }
@@ -106,9 +108,11 @@ function addShowMoreLessButton(data, tbody, rtacDiv) {
         showingAll = !showingAll;
         tbody.innerHTML = '';
 
-        const rowsToShow = showingAll ? data.filter(item => item.status.toLowerCase() !== 'lost') : data.filter(item => item.status.toLowerCase() !== 'lost').slice(0, 3);
+        const rowsToShow = showingAll 
+            ? data.bibRecords.flatMap(record => record.holdings).filter(holding => holding.status.toLowerCase() !== 'lost')
+            : data.bibRecords.flatMap(record => record.holdings).filter(holding => holding.status.toLowerCase() !== 'lost').slice(0, 3);
 
-        rowsToShow.forEach(item => addTableRow(tbody, item));
+        rowsToShow.forEach(holding => addTableRow(tbody, holding));
 
         button.textContent = showingAll ? 'Show Less' : 'Show More';
     });
